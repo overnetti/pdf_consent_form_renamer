@@ -3,9 +3,9 @@
 ## Introduction
 The python script `pdf_consent_form_renamer.py` specifically renames HelloSign consent forms for the USENIX Association in the following format: lastname_firstname.pdf. If there are duplicate last names, the script will begin a counter after the firstname like so: lastname_firstname_1.pdf and continue counting if there are duplicate lastname and firstname combos.
 
-The USENIX Association is an advanced computing systems nonprofit organization, known for organizing conferences and publishing research. 
+The USENIX Association is an advanced computing systems nonprofit organization, known for organizing conferences and publishing research. Prior one of their monthly conferences throughout the year, hundreds of consent forms need to be signed by speakers and authors of conference presentations. The team receives a deluge of forms on a rolling basis that need to be renamed and tracked in a Google Sheet. Renaming forms can take hundreds of hours throughout the year and this script resolved that workload by turning the process into a minute.
 
-This script may need to be modified for use on different forms. 
+This script may need to be modified for use on different forms or forms from different vendors like DocuSign.
 
 ## Need to Know
 
