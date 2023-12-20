@@ -1,4 +1,4 @@
-# HelloSign Consent Form Renamer
+# HelloSign PDF Consent Form Renamer
 
 ## Introduction
 The python script `pdf_consent_form_renamer.py` specifically renames HelloSign consent forms for the USENIX Association in the following format: lastname_firstname.pdf. If there are duplicate last names, the script will begin a counter after the firstname like so: lastname_firstname_1.pdf and continue counting if there are duplicate lastname and firstname combos.
