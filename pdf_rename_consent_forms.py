@@ -6,28 +6,38 @@ import fitz
 import re
 import os
 from collections import defaultdict
-os.chdir('/PLACE/FILEPATH/HERE/') #Update filepath based on where PDFs are placed
+
+#Update the filepath in this field based on where the PDFs are placed
+os.chdir('/PLACE/FILEPATH/HERE/') 
 nameCounter = defaultdict(list)
-lastnameCounter = defaultdict(int) #using int as default value to keep track of duplicate last names
+lastnameCounter = defaultdict(int) 
+
+#Targets only the PDFs in the folder and opens them to retrieve text.
 for filepath in os.listdir():
-    if filepath[-4:]!='.pdf': #target only PDFs in the folder
+    if filepath[-4:]!='.pdf': 
         continue
     text = ''
     with fitz.open(filepath) as doc:
         for page in doc:
-            text+= page.getText() #get all of the text from the PDF
-    fullname = re.findall('\n(.*?)\nDoc ID', text)[-1] #locate fullname on HelloSign consent forms
-    firstname = fullname.split()[0] #split name into first and last name variables for formatting
+            text+= page.getText() 
+
+    #Locates full names and splits them into first and last name variables.
+    fullname = re.findall('\n(.*?)\nDoc ID', text)[-1] 
+    firstname = fullname.split()[0] 
     lastname = fullname.split()[-1]
-    nameCounter[(firstname, lastname)].append(filepath) #add the first and last name to nameCounter and lastnameCounter dictionaries
-    lastnameCounter[lastname]+=1 #keeping track of occurrences of a specific lastname
+    
+    #Adds the first and last names to dictionaries and keep track of the number of occurences of a duplicate last names.
+    nameCounter[(firstname, lastname)].append(filepath) 
+    lastnameCounter[lastname]+=1 
+
+#Renames the forms and if there are duplicate last names, begins a counter to append sequential numbers for each.
 for (firstname, lastname), files in nameCounter.items():
     for i, file in enumerate(files):
         if lastnameCounter[lastname]>1 or len(files)>1:
-            newfile = lastname.lower()+'_'+firstname.lower()+'_'+str(i+1)+'.pdf' #if there are duplicate lastnames, script will begin a counter and append sequential numbers for each
+            newfile = lastname.lower()+'_'+firstname.lower()+'_'+str(i+1)+'.pdf'
         else:
-            newfile = lastname.lower()+'_'+firstname.lower()+'.pdf' #otherwise will rename all pdfs as lastname_firstname.pdf
-        if os.path.exists(newfile): #and if the file already exists, it'll skip the file so it is not deleted
+            newfile = lastname.lower()+'_'+firstname.lower()+'.pdf' 
+        if os.path.exists(newfile): 
             print(f'File {newfile} already exists! Skipping {firstname} {lastname}')
         else:
             os.rename(file, newfile)
