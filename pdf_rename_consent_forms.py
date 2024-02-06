@@ -26,7 +26,7 @@ for filepath in os.listdir():
     firstname = fullname.split()[0] 
     lastname = fullname.split()[-1]
     
-    #Adds the first and last names to dictionaries and keep track of the number of occurences of a duplicate last names.
+    #Adds the first and last names to dictionaries and keep track of the number of occurences of duplicate last names.
     nameCounter[(firstname, lastname)].append(filepath) 
     lastnameCounter[lastname]+=1 
 
